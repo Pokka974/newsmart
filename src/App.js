@@ -21,15 +21,26 @@ function App() {
     // TODO: Prevent special char in the query and set a max length
     const q = query?.replace(/\s+/g, ' ').trim().split(' ').join('&')
     console.log(process.env.REACT_APP_API_URL);
-    console.log(`PARAMS : ${sourceParam}/${q.toLocaleLowerCase()}`);
+    console.log(`PARAMS : ${sourceParam}${q.toLocaleLowerCase()}`);
+    console.log(`PARAMS : ${process.env.REACT_APP_API_URL}${sourceParam}${q.toLocaleLowerCase()}`);
 
-    await api.get(`${sourceParam}/${q.toLocaleLowerCase()}`)
+    await api.get(`${sourceParam}${q.toLocaleLowerCase()}`)
       .then(res => setResult(res.data))
       .catch(err => console.log(err))
 
     setQuery('')
     setSource('Tous')
   }
+
+  useEffect(() => {
+    const getFirstPageNews = async () => {
+      await api.get()
+      .then(res => setResult(res.data))
+      .catch(err => console.log(err))
+    } 
+
+    getFirstPageNews()
+  }, [])
 
   useEffect(() => {
     replaceSource()
@@ -39,31 +50,31 @@ function App() {
     switch (source.toLocaleLowerCase()) {
 
       case 'le monde' :
-        setSourceParam('lemonde')
+        setSourceParam('lemonde/')
         break;
 
       case 'le figaro' : 
-        setSourceParam('figaro')
+        setSourceParam('figaro/')
         break;
 
       case 'la croix' : 
-        setSourceParam('lacroix')
+        setSourceParam('lacroix/')
         break;
 
       case 'la tribune' : 
-        setSourceParam('tribune')
+        setSourceParam('tribune/')
         break;
 
       case 'les echos' : 
-        setSourceParam('echos')
+        setSourceParam('echos/')
         break;
 
       case 'humanité' : 
-        setSourceParam('humanite')
+        setSourceParam('humanite/')
         break;
 
       case 'libération' : 
-        setSourceParam('liberation')
+        setSourceParam('liberation/')
         break;
 
       default:
