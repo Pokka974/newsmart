@@ -32,15 +32,15 @@ function App() {
     setSource('Tous')
   }
 
-  useEffect(() => {
-    const getFirstPageNews = async () => {
-      await api.get()
-      .then(res => setResult(res.data))
-      .catch(err => console.log(err))
-    } 
+  // useEffect(() => {
+  //   const getFirstPageNews = async () => {
+  //     await api.get()
+  //     .then(res => setResult(res.data))
+  //     .catch(err => console.log(err))
+  //   } 
 
-    getFirstPageNews()
-  }, [])
+  //   getFirstPageNews()
+  // }, [])
 
   useEffect(() => {
     replaceSource()
